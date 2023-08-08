@@ -4,7 +4,7 @@
     name: ufw
     state: latest
 
-- name: Change forward poliy
+- name: Change forward policy
   lineinfile:
     path: /etc/default/ufw
     regexp: '^DEFAULT_FORWARD_POLICY="DROP"'
@@ -30,7 +30,7 @@
       :POSTROUTING ACCEPT [0:0]
 
       # Forward traffic through eth0 - Change to match you out-interface
-      -A POSTROUTING -s {{ ansible_default_ipv4.network }}/24 -o {{ ansible_default_ipv4.interface }} -j MASQUERADE
+      -A POSTROUTING -s {{private_network}} -o {{ ansible_default_ipv4.interface }} -j MASQUERADE
 
       # don't delete the 'COMMIT' line or these nat table rules won't
       # be processed
